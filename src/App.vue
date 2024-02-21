@@ -3,32 +3,18 @@
     <a href="#" v-for="(item, idx) in menu" :key="idx">{{ item }}</a>
   </div>
 
-  <DisCount/>
+  <DisCount />
 
-  <div v-for="(item, idx) in products" :key="idx">
-    <img :src="item.image">
-    <h4 v-on:click="modalOpen = true; clickWhat = idx">{{ item.title }}</h4>
-    <p>{{ item.price }}원</p>
-    <hr>
-  </div>
+  <TheCard v-for="(item, idx) in products" :key="idx" :item="item" />
 
-  <div class="black-bg" v-if="modalOpen">
-    <div class="white-bg">
-      <h4>{{ products[clickWhat].title }}</h4>
-      <p>{{ products[clickWhat].content }}</p>
-      <p>{{ products[clickWhat].price }}원</p>
-      <p>신고 수: {{ products[clickWhat].report }}</p>
-      <img :src="products[clickWhat].image">
-      <DisCount/>
-      <button type="button" v-on:click="products[clickWhat].report += 1">허위매물신고</button>
-      <button type="button" v-on:click="modalOpen = false">닫기</button>
-    </div>
-  </div>
+  <TheModal :products="products" :clickWhat="clickWhat" :modalOpen="modalOpen" />
 </template>
 
 <script>
 import oneromeData from './oneroom';
 import DisCount from './DisCount.vue';
+import TheModal from './TheModal.vue';
+import TheCard from './TheCard.vue';
 
 export default {
   name: 'App',
@@ -42,6 +28,8 @@ export default {
   },
   components: {
     DisCount, //또는 , DisCount: DisCount,
+    TheModal,
+    TheCard,
   }
 }
 </script>
