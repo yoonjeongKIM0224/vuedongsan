@@ -3,10 +3,11 @@
     <a href="#" v-for="(item, idx) in menu" :key="idx">{{ item }}</a>
   </div>
 
-  <div v-for="(item, idx) in products_obj" :key="idx">
-    <img :src="item.img">
-    <h4 v-on:click="modalOpen = true">{{ item.tit }}</h4>
-    <p>{{ item.price }} 만원</p>
+  <div v-for="(item, idx) in products" :key="idx">
+    <img :src="item.image">
+    <h4 v-on:click="modalOpen = true">{{ item.title }}</h4>
+    <p>{{ item.content }}</p>
+    <p>{{ item.price }}원</p>
     <button type="button" v-on:click="item.report += 1">허위매물신고</button>
     <p>신고 수: {{ item.report }}</p>
     <hr>
@@ -23,33 +24,35 @@
 </template>
 
 <script>
+import oneromeData from './oneroom';
+
 export default {
   name: 'App',
   data(){// 데이터 보관통
     return {
       price1 : 60,
       price2 : 70,
-      products: ['역삼동 원룸'],
-      products_obj: [
-        {
-          tit: '역삼동 원룸',
-          price: 60,
-          img: require('./assets/room0.jpg'),
-          report: 0,
-        },
-        {
-          tit: '천호동 원룸',
-          img: require('./assets/room1.jpg'),
-          price: 70,
-          report: 0,
-        },
-        {
-          tit: '마포구 원룸',
-          img: require('./assets/room2.jpg'),
-          price: 80,
-          report: 0,
-        },
-      ],
+      products: oneromeData,
+      // products_obj: [
+      //   {
+      //     tit: '역삼동 원룸',
+      //     price: 60,
+      //     img: require('./assets/room0.jpg'),
+      //     report: 0,
+      //   },
+      //   {
+      //     tit: '천호동 원룸',
+      //     img: require('./assets/room1.jpg'),
+      //     price: 70,
+      //     report: 0,
+      //   },
+      //   {
+      //     tit: '마포구 원룸',
+      //     img: require('./assets/room2.jpg'),
+      //     price: 80,
+      //     report: 0,
+      //   },
+      // ],
       menu: ['Home', 'Shop', 'About'],
       blueColor: 'color: blue',
       modalOpen: false,
