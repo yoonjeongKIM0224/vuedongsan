@@ -3,6 +3,8 @@
     <a href="#" v-for="(item, idx) in menu" :key="idx">{{ item }}</a>
   </div>
 
+  <DisCount/>
+
   <div v-for="(item, idx) in products" :key="idx">
     <img :src="item.image">
     <h4 v-on:click="modalOpen = true; clickWhat = idx">{{ item.title }}</h4>
@@ -17,6 +19,7 @@
       <p>{{ products[clickWhat].price }}원</p>
       <p>신고 수: {{ products[clickWhat].report }}</p>
       <img :src="products[clickWhat].image">
+      <DisCount/>
       <button type="button" v-on:click="products[clickWhat].report += 1">허위매물신고</button>
       <button type="button" v-on:click="modalOpen = false">닫기</button>
     </div>
@@ -25,6 +28,7 @@
 
 <script>
 import oneromeData from './oneroom';
+import DisCount from './DisCount.vue';
 
 export default {
   name: 'App',
@@ -37,6 +41,7 @@ export default {
     }
   },
   components: {
+    DisCount, //또는 , DisCount: DisCount,
   }
 }
 </script>
@@ -89,5 +94,12 @@ div {
   background-color: #fff;
   border-radius: 8px;
   padding: 20px;
+}
+
+.discount {
+  background-color: #eee;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
 }
 </style>
