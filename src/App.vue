@@ -5,9 +5,20 @@
 
   <DisCount />
 
-  <TheCard v-for="(item, idx) in products" :key="idx" :item="item" />
+  <TheCard 
+    @CardModalOpen="modalOpen = true; clickWhat = idx"
+    v-for="(item, idx) in products"
+    :key="idx"
+    :item="item"
+   />
 
-  <TheModal :products="products" :clickWhat="clickWhat" :modalOpen="modalOpen" />
+  <TheModal 
+    @ModalReport="products[clickWhat].report += 1; console.log($event)"
+    @ModalClose="modalOpen = false"
+    :products="products"
+    :clickWhat="clickWhat"
+    :modalOpen="modalOpen"
+  />
 </template>
 
 <script>

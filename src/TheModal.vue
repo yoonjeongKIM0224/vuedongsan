@@ -6,8 +6,8 @@
       <p>{{ products[clickWhat].price }}원</p>
       <p>신고 수: {{ products[clickWhat].report }}</p>
       <img :src="products[clickWhat].image">
-      <!-- <button type="button" v-on:click="products[clickWhat].report += 1">허위매물신고</button>
-      <button type="button" v-on:click="modalOpen = false">닫기</button> -->
+      <button type="button" v-on:click="$emit('ModalReport', '뿡')">허위매물신고</button>
+      <button type="button" v-on:click="$emit('ModalClose')">닫기</button>
     </div>
   </div>
 </template>
