@@ -12,13 +12,15 @@
     :item="item"
    />
 
-  <TheModal 
-    @ModalReport="products[clickWhat].report += 1; console.log($event)"
-    @ModalClose="modalOpen = false"
-    :products="products"
-    :clickWhat="clickWhat"
-    :modalOpen="modalOpen"
-  />
+  <div class="start" :class="{end : modalOpen}">
+    <TheModal 
+      @ModalReport="products[clickWhat].report += 1; console.log($event)"
+      @ModalClose="modalOpen = false"
+      :products="products"
+      :clickWhat="clickWhat"
+      :modalOpen="modalOpen"
+    />
+  </div>
 </template>
 
 <script>
@@ -100,5 +102,14 @@ div {
   padding: 20px;
   margin: 10px;
   border-radius: 5px;
+}
+
+.start {
+  opacity: 0;
+  transition: all 1s;
+}
+
+.end {
+  opacity: 1;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="black-bg" v-if="modalOpen">
+  <div class="black-bg" v-if="modalOpen">
     <div class="white-bg">
       <h4>{{ products[clickWhat].title }}</h4>
       <p>{{ products[clickWhat].content }}</p>
