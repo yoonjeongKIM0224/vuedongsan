@@ -5,6 +5,10 @@
 
   <DisCount />
 
+  <button type="button" @click="priceSort">최저가 정렬</button>
+  <button type="button" @click="priceBack">최고가 정렬</button>
+  <button type="button" @click="abcSort">글자순 정렬</button>
+
   <TheCard 
     @CardModalOpen="modalOpen = true; clickWhat = idx"
     v-for="(item, idx) in products"
@@ -33,11 +37,31 @@ export default {
   name: 'App',
   data(){// 데이터 보관통
     return {
-      products: oneromeData,
+      productsOri: oneromeData,
+      products: [...oneromeData],
       menu: ['Home', 'Shop', 'About'],
       modalOpen: false,
       clickWhat: 0,
     }
+  },
+  methods: {
+    priceSort(){ //최저가
+      this.products.sort(function(a, b){
+        return a.price - b.price;
+      });
+
+      console.log(this.productsOri);
+    },
+    priceBack(){ //최고가
+      this.products.sort(function(a, b){
+        return b.price - a.price;
+      });
+    },
+    abcSort(){ //글자순
+      this.products.sort(function(a, b){
+        return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+      });
+    },
   },
   components: {
     DisCount, //또는 , DisCount: DisCount,
