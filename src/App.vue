@@ -3,7 +3,7 @@
     <a href="#" v-for="(item, idx) in menu" :key="idx">{{ item }}</a>
   </div>
 
-  <DisCount />
+  <DisCount v-if="showDiscount" :disCountNum="disCountNum" />
 
   <button type="button" @click="priceSort">최저가 정렬</button>
   <button type="button" @click="priceBack">최고가 정렬</button>
@@ -42,6 +42,8 @@ export default {
       menu: ['Home', 'Shop', 'About'],
       modalOpen: false,
       clickWhat: 0,
+      showDiscount: true,
+      disCountNum: 30,
     }
   },
   methods: {
@@ -67,6 +69,13 @@ export default {
     DisCount, //또는 , DisCount: DisCount,
     TheModal,
     TheCard,
+  },
+  mounted(){ //1초마다 1%씩 감소
+    setInterval(() => {
+      if(this.disCountNum !== 0){
+        this.disCountNum = this.disCountNum - 1;
+      }
+    }, 100)
   }
 }
 </script>

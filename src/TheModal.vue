@@ -9,7 +9,7 @@
       <br>
       <label for="numMonth">개월 수 </label>
       <input type="text" id="numMonth" v-model.number="month">
-      <p>{{ month }} 개월 선택 시: {{ products[clickWhat].price + month }}원 </p>
+      <p>{{ month }} 개월 선택 시: {{ products[clickWhat].price * month }}원 </p>
       <br>
       <br>
       <button type="button" v-on:click="$emit('ModalReport', '뿡')">허위매물신고</button>
@@ -28,11 +28,11 @@
     },
     watch: {
       month(info){
-        if(typeof info !== 'number'){
+        if(isNaN(info) == true){
           alert('숫자로 입력해주세요.');
           this.month = 1;
         } else if(info >= 13){
-          alert('1 ~ 12 사이의 숫자를 입력해주세요.')
+          alert('1 ~ 12 사이의 숫자를 입력해주세요.');
         }
       }
     },
@@ -40,6 +40,12 @@
         products: Array,
         clickWhat: Number,
         modalOpen: Boolean,
+    },
+    beforeUpdate(){
+      if(this.month == 2){
+        alert('2개월은 판매 불가능입니다. 3개월로 입력됩니다.');
+        this.month = 3;
+      }
     }
   }
 </script>
