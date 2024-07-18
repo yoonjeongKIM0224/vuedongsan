@@ -1,20 +1,23 @@
 <template>
-  <div class="menu">
-    <a href="#" v-for="(item, idx) in menu" :key="idx">{{ item }}</a>
-  </div>
-
+  <header class="header">
+    <div class="container">
+      <h1>LOGO</h1>
+    </div>
+  </header>
   <DisCount v-if="showDiscount" :disCountNum="disCountNum" />
 
-  <button type="button" @click="priceSort">최저가 정렬</button>
-  <button type="button" @click="priceBack">최고가 정렬</button>
-  <button type="button" @click="abcSort">글자순 정렬</button>
+  <div class="btn_wrap">
+    <button type="button" @click="priceSort" class="btn_1">최저가 정렬</button>
+    <button type="button" @click="priceBack" class="btn_1">최고가 정렬</button>
+    <button type="button" @click="abcSort" class="btn_1">글자순 정렬</button>
+  </div>
 
   <TheCard 
     @CardModalOpen="modalOpen = true; clickWhat = idx"
     v-for="(item, idx) in products"
     :key="idx"
     :item="item"
-   />
+  />
 
   <div class="start" :class="{end : modalOpen}">
     <TheModal 
@@ -81,12 +84,27 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  word-break: break-all;
+  list-style: none;
+  text-decoration: none;
+  font-style: normal;
+  font-family: "Noto Sans KR", sans-serif;
+  box-sizing: border-box;
+  letter-spacing: -0.04em;
+  line-height: 1.4;
+  border: 0;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 img {
@@ -133,8 +151,6 @@ div {
 .discount {
   background-color: #eee;
   padding: 20px;
-  margin: 10px;
-  border-radius: 5px;
 }
 
 .start {
@@ -144,5 +160,27 @@ div {
 
 .end {
   opacity: 1;
+}
+
+.btn_wrap {
+  display: flex;
+  margin: 40px 0;
+}
+
+.btn_wrap [class*="btn"] {
+  flex: 1;
+}
+
+.btn_wrap [class*="btn"] + * {
+  margin-left: 14px;
+}
+
+.btn_1 {
+  border-radius: 4px;
+  font-size: 18px;
+  height: 40px;
+  background-color: #A5C4BD;
+  color: #fff;
+  cursor: pointer;
 }
 </style>

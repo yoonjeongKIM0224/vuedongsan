@@ -1,8 +1,10 @@
 <template>
-    <div>
-        <img :src="item.image">
-        <h4 @click="cradModalOpen">{{ item.title }}</h4>
-        <p>{{ item.price }}원</p>
+    <div class="card_wrap">
+        <div class="img_wrap">
+            <img :src="item.image" class="img">
+        </div>
+        <h2 @click="cradModalOpen" class="title">{{ item.title }}</h2>
+        <p class="text">{{ item.price }}원</p>
         <hr>
     </div>
 </template>
