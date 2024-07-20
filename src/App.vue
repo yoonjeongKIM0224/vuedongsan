@@ -1,6 +1,4 @@
 <template>
-  {{ article?.response.body }}
-
   <TheHeader />
 
   <DisCount v-if="showDiscount" :disCountNum="disCountNum" />
@@ -22,14 +20,13 @@
 
   <div class="start" :class="{end : modalOpen}">
     <TheModal 
-      @ModalReport="products[clickWhat].report += 1;"
+      @ModalReport="products[clickWhat].report += 1; console.log($event)"
       @ModalClose="modalOpen = false"
       :products="products"
       :clickWhat="clickWhat"
       :modalOpen="modalOpen"
     />
   </div>
-
 </template>
 
 <script>
@@ -38,7 +35,7 @@ import DisCount from './DisCount.vue';
 import TheModal from './TheModal.vue';
 import TheCard from './TheCard.vue';
 import TheHeader from './TheHeader.vue';
-import apiBoard from './api/board.js';
+
 
 export default {
   name: 'App',
@@ -51,7 +48,6 @@ export default {
       clickWhat: 0,
       showDiscount: true,
       disCountNum: 30,
-      article: null
     }
   },
   methods: {
@@ -60,7 +56,7 @@ export default {
         return a.price - b.price;
       });
 
-      // console.log(this.productsOri);
+      console.log(this.productsOri);
     },
     priceBack(){ //최고가
       this.products.sort(function(a, b){
@@ -73,32 +69,19 @@ export default {
       });
     },
   },
-  mounted(){
-    //1초마다 1%씩 감소
-    setInterval(() => {
-      if(this.disCountNum !== 0){
-        this.disCountNum = this.disCountNum - 1;
-      }
-    }, 100)
-
-    apiBoard.getAricles(0)
-      .then((response) => {
-        // 성공 시
-        console.log('getAricles', response.data)
-
-        this.article = response.data
-      })
-      .catch((e) => {
-        // 에러
-        console.log(e)
-      });
-  },
   components: {
     DisCount, //또는 , DisCount: DisCount,
     TheModal,
     TheCard,
     TheHeader
   },
+  mounted(){ //1초마다 1%씩 감소
+    setInterval(() => {
+      if(this.disCountNum !== 0){
+        this.disCountNum = this.disCountNum - 1;
+      }
+    }, 100)
+  }
 }
 </script>
 
