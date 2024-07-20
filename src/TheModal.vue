@@ -1,19 +1,49 @@
 <template>
-  <div class="black-bg" v-if="modalOpen">
-    <div class="white-bg" style="overflow-y: auto; width: 500px;">
-      <h2 class="title">{{ products[clickWhat].title }}</h2>
-      <p class="text">{{ products[clickWhat].content }}</p>
-      <p class="text">{{ products[clickWhat].price }}원</p>
-      <p class="text">좋아요 수: {{ products[clickWhat].report }}</p>
-      <div class="img_wrap">
-        <img :src="products[clickWhat].image" class="img">
-      </div>
-      <label for="numMonth">구매하실 개수</label>
-      <input type="text" id="numMonth" v-model.number="month" style="border: 1px solid;">
-      <p class="text">{{ month }} 개 구매할 시: {{ products[clickWhat].price * month }}원 </p>
-      <div class="btn_wrap">
-        <button type="button" v-on:click="$emit('ModalReport', '뿡')" class="btn_1">허위매물신고</button>
-        <button type="button" v-on:click="$emit('ModalClose')" class="btn_1">닫기</button>
+  <div class="modal_wrapper" v-if="modalOpen">
+    <div class="modal_wrap">
+      <div class="container">
+        <div class="img_wrap">
+          <img :src="products[clickWhat].image" class="img">
+        </div>
+
+        <h2 class="title">{{ products[clickWhat].title }}</h2>
+        <p class="text">{{ products[clickWhat].content }}</p>
+
+        <ul>
+          <li v-for="(item, idx) in products[clickWhat].infoList1" :key="idx">
+            <span>{{ item.title }}</span>
+            <span>{{ item.text }}</span>
+          </li>
+        </ul>
+
+        <span>{{ products[clickWhat].star }}</span>
+
+        <ul>
+          <li v-for="(item, idx) in products[clickWhat].infoList2" :key="idx">
+            <span>{{ item.title }}</span>
+            <span>{{ item.text }}</span>
+          </li>
+        </ul>
+
+        <div>
+          <span>{{ products[clickWhat].hostInfo.name }}</span>
+          <span>{{ products[clickWhat].hostInfo.career }}</span>
+        </div>
+
+        <div>
+          <p>{{ products[clickWhat].address.text }}</p>
+          <iframe :src="products[clickWhat].address.map" frameborder="0"></iframe>
+        </div>
+
+        <p class="text">{{ products[clickWhat].price }}원</p>
+        <p class="text">찜 수: {{ products[clickWhat].report }}</p>
+        <label for="numMonth">구매하실 개수</label>
+        <input type="text" id="numMonth" v-model.number="month" style="border: 1px solid;">
+        <p class="text">{{ month }} 개 구매할 시: {{ products[clickWhat].price * month }}원 </p>
+        <div class="btn_wrap">
+          <button type="button" v-on:click="$emit('ModalReport', '뿡')" class="btn_1">찜하기</button>
+          <button type="button" v-on:click="$emit('ModalClose')" class="btn_1">닫기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -38,9 +68,9 @@
       }
     },
     props: {
-        products: Array,
-        clickWhat: Number,
-        modalOpen: Boolean,
+      products: Array,
+      clickWhat: Number,
+      modalOpen: Boolean,
     },
     beforeUpdate(){
       if(this.month == 2){
